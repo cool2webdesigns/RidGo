@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>RideGo — Nottingham</title>
+<style>
+:root{--ink:#142033;--muted:#64748b;--line:#e5eaf0;--bg:#f4f7fb;--green:#12a86b;--dark:#101827;--red:#dc3545;--amber:#f5b82e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:var(--dark);color:white;padding:18px max(18px,calc((100% - 1120px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-size:23px;font-weight:850;letter-spacing:-.7px}.brand b{color:#43d69a}.top small{color:#cbd5e1}.wrap{max-width:1120px;margin:auto;padding:18px}.nav{display:flex;gap:8px;overflow:auto;background:white;padding:10px;border:1px solid var(--line);border-radius:15px;margin-bottom:18px}.nav button{border:0;background:transparent;padding:11px 15px;border-radius:10px;color:var(--muted);font-weight:700;white-space:nowrap}.nav button.active{background:#e8f8f0;color:#087b4c}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.card{background:white;border:1px solid var(--line);border-radius:17px;padding:19px;margin-bottom:16px;box-shadow:0 4px 18px #14203308}.card h2,.card h3{margin:0 0 13px}.muted{color:var(--muted)}.small{font-size:13px}.field{display:block;margin:11px 0}.field span{display:block;font-size:13px;font-weight:700;color:#526174;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;border:1px solid #d9e1ea;border-radius:10px;padding:12px;background:white;color:var(--ink);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #12a86b18}.row{display:flex;gap:10px;align-items:center}.row>*{flex:1}.btn{border:0;border-radius:11px;padding:12px 16px;font-weight:800;background:var(--green);color:white}.btn:hover{filter:brightness(.96)}.btn.dark{background:var(--dark)}.btn.light{background:#eef2f6;color:var(--ink)}.btn.red{background:var(--red)}.btn.full{width:100%}.vehicle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.vehicle{border:1.5px solid var(--line);border-radius:13px;padding:13px;text-align:left;background:white}.vehicle.selected{border-color:var(--green);background:#effbf5;box-shadow:0 0 0 2px #12a86b16}.vehicle strong{display:block}.vehicle .price{color:#087b4c;font-weight:850}.map{height:220px;border-radius:14px;background:linear-gradient(135deg,#e8f2f7,#e4f6ed);display:grid;place-items:center;text-align:center;color:#496274;padding:15px;overflow:hidden}.map .pin{font-size:36px}.map a{color:#087b4c;font-weight:700}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#f6f9fc;border-radius:12px;padding:13px}.stat strong{display:block;font-size:22px}.pill{display:inline-block;border-radius:99px;padding:4px 9px;font-size:12px;font-weight:800;background:#edf2f7;color:#475569}.pill.green{background:#e5f8ee;color:#087b4c}.pill.amber{background:#fff4d6;color:#8b5c00}.pill.red{background:#ffebed;color:#a51f2b}.item{border:1px solid var(--line);border-radius:12px;padding:13px;margin:10px 0}.item-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.hidden{display:none!important}.notice{padding:12px;border-radius:11px;background:#fff8df;color:#745100;font-size:13px;margin:10px 0}.success{background:#e8f8f0;color:#086b43}.danger{background:#ffeff0;color:#9c202b}.tabs-note{font-size:12px;color:var(--muted);margin-top:8px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted)}.table-wrap{overflow:auto}.stars{color:#e6a400;letter-spacing:2px}.footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}.tag{font-size:12px;color:#087b4c;font-weight:800}.check{display:flex;align-items:center;gap:8px;margin:9px 0}.check input{width:auto}.empty{text-align:center;padding:25px;color:var(--muted)}@media(max-width:760px){.grid{grid-template-columns:1fr}.wrap{padding:12px}.card{padding:15px}.stats{grid-template-columns:1fr 1fr}.top{padding:15px}.vehicle-grid{grid-template-columns:1fr 1fr}}@media(max-width:390px){.vehicle-grid{grid-template-columns:1fr}.row{flex-direction:column;align-items:stretch}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div><div class="brand">🚕 Ride<b>Go</b></div><small>Nottingham • Your journey, your way</small></div>
+  <div class="small">Customer · Driver · Admin demo</div>
+</header>
+<main class="wrap">
+  <nav class="nav" aria-label="Main navigation">
+    <button class="active" data-panel="customer">Book a ride</button>
+    <button data-panel="driver">Driver portal</button>
+    <button data-panel="admin">Admin dashboard</button>
+    <button data-panel="account">My account</button>
+  </nav>
+
+  <section id="customer" class="panel active">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>Where are you going?</h2>
+          <label class="field"><span>Pickup location</span><input id="pickup" value="Nottingham city centre" placeholder="Enter pickup address"></label>
+          <div class="row"><button class="btn light" id="locate">◎ Use my GPS location</button><span id="gpsStatus" class="small muted">GPS not requested</span></div>
+          <label class="field"><span>Destination</span><input id="dropoff" placeholder="Enter destination"></label>
+          <label class="field"><span>Journey type</span><select id="journey"><option value="local">Local journey</option><option value="airport">Airport transfer</option></select></label>
+          <div id="airportFields" class="hidden">
+            <label class="field"><span>Airport</span><select id="airport"><option>East Midlands Airport</option><option>Birmingham Airport</option><option>Manchester Airport</option><option>London Heathrow Airport</option><option>London Luton Airport</option></select></label>
+          </div>
+          <div class="map"><div><div class="pin">📍</div><strong>RideGo journey map</strong><p class="small">GPS coordinates and route preview appear here when location is allowed.</p><a href="https://www.google.com/maps" target="_blank" rel="noopener">Open Google Maps ↗</a></div></div>
+        </div>
+        <div class="card">
+          <h3>Choose your vehicle</h3>
+          <div class="vehicle-grid" id="vehicles">
+            <button class="vehicle selected" data-type="Economy" data-base="5" data-mile="1.45"><strong>🚗 Economy</strong><span class="small muted">1–4 passengers</span><span class="price">From £5.00</span></button>
+            <button class="vehicle" data-type="Comfort" data-base="7" data-mile="1.75"><strong>🚙 Comfort</strong><span class="small muted">Newer vehicles</span><span class="price">From £7.00</span></button>
+            <button class="vehicle" data-type="XL" data-base="9" data-mile="2.05"><strong>🚐 XL</strong><span class="small muted">Up to 6 passengers</span><span class="price">From £9.00</span></button>
+            <button class="vehicle" data-type="Executive" data-base="13" data-mile="2.65"><strong>✨ Executive</strong><span class="small muted">Premium journey</span><span class="price">From £13.00</span></button>
+          </div>
+          <div class="row">
+            <label class="field"><span>Estimated distance (miles)</span><input id="miles" type="number" min="1" max="500" value="3" step="0.5"></label>
+            <label class="field"><span>Passengers</span><select id="passengers"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option></select></label>
+          </div>
+          <label class="field"><span>Discount code (optional)</span><input id="promo" placeholder="Try WELCOME10"></label>
+          <div class="notice">Fare is an indicative estimate for this demo. A real dispatch system should calculate verified road distance, waiting time, tolls and operator fees.</div>
+        </div>
+      </div>
+      <aside>
+        <div class="card">
+          <h3>Fare estimate</h3>
+          <div class="stats"><div class="stat"><span class="small muted">Vehicle</span><strong id="fareVehicle">Economy</strong></div><div class="stat"><span class="small muted">Distance</span><strong id="fareMiles">3 mi</strong></div><div class="stat"><span class="small muted">Estimate</span><strong id="fare">£9.35</strong></div></div>
+          <p id="discountInfo" class="small muted">Enter a code to apply an eligible discount.</p>
+          <div class="field"><span>Payment</span><div class="item">💳 Card payment only <span class="pill">Demo checkout</span></div></div>
+          <button class="btn full" id="bookBtn">Continue to card checkout</button>
+          <p class="tabs-note">No card details are collected or charged in this standalone demo.</p>
+        </div>
+        <div class="card">
+          <h3>Booking status</h3><div id="bookingStatus" class="empty">Your confirmed demo bookings will appear here.</div>
+        </div>
+        <div class="card">
+          <h3>Customer reviews</h3><div id="reviewPreview" class="muted small">No reviews yet. Complete a demo ride to leave feedback.</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="driver" class="panel">
+    <div class="grid">
+      <div class="card">
+        <h2>Driver portal</h2>
+        <p class="muted small">Register a driver profile or sign in using the demo driver name to manage jobs. This does not verify a licence or private-hire badge.</p>
+        <h3>Driver registration</h3>
+        <label class="field"><span>Full name</span><input id="driverName" placeholder="Driver full name"></label>
+        <label class="field"><span>Email address</span><input id="driverEmail" type="email" placeholder="driver@example.com"></label>
+        <label class="field"><span>Phone number</span><input id="driverPhone" type="tel" placeholder="07..."></label>
+        <label class="field"><span>Vehicle / registration</span><input id="driverCar" placeholder="Toyota Prius • AB12 CDE"></label>
+        <label class="check"><input type="checkbox" id="driverDeclaration"> I understand registration is pending operator checks and is not permission to undertake private-hire work.</label>
+        <button class="btn full" id="registerDriver">Submit driver registration</button>
+        <div id="driverMessage" class="small"></div>
+      </div>
+      <div>
+        <div class="card">
+          <h3>Driver sign-in (demo)</h3>
+          <label class="field"><span>Registered driver name</span><input id="driverLogin" placeholder="Enter your registered name"></label>
+          <button class="btn dark full" id="driverSignIn">Open driver jobs</button>
+          <div id="driverSigned" class="small muted">No driver signed in.</div>
+        </div>
+        <div class="card">
+          <h3>Available bookings</h3><div id="driverJobs" class="empty">Sign in to see unassigned bookings.</div>
+        </div>
+        <div class="card">
+          <h3>My earnings</h3><div class="stats"><div class="stat"><span class="small muted">Completed</span><strong id="driverCompleted">0</strong></div><div class="stat"><span class="small muted">Gross fares</span><strong id="driverGross">£0.00</strong></div><div class="stat"><span class="small muted">Illustrative share</span><strong id="driverNet">£0.00</strong></div></div>
+          <p class="tabs-note">Demo earnings use an illustrative 80% driver share, not a contractual payment calculation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin" class="panel">
+    <div class="card">
+      <div class="item-head"><div><h2>Admin dashboard</h2><p class="muted small">Local demonstration dashboard. Not protected by production authentication.</p></div><span class="pill amber">Demo admin access</span></div>
+      <div class="stats">
+        <div class="stat"><span class="small muted">Bookings</span><strong id="adminBookings">0</strong></div>
+        <div class="stat"><span class="small muted">Drivers</span><strong id="adminDrivers">0</strong></div>
+        <div class="stat"><span class="small muted">Demo booking value</span><strong id="adminRevenue">£0.00</strong></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="card"><h3>Booking management</h3><div id="adminBookingList" class="empty">No bookings yet.</div></div>
+      <div>
+        <div class="card"><h3>Driver applications</h3><div id="adminDriverList" class="empty">No driver applications yet.</div></div>
+        <div class="card"><h3>Discount codes</h3><div class="item"><strong>WELCOME10</strong><p class="small muted">10% off • demo code</p></div><div class="item"><strong>RIDE5</strong><p class="small muted">£5 off • demo code</p></div><p class="tabs-note">Edit the PROMOS object in the script to change demo codes.</p></div>
+        <div class="card"><h3>Data tools</h3><button class="btn light full" id="exportData">Export demo data (JSON)</button><button class="btn red full" id="clearData" style="margin-top:9px">Clear all local demo data</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="account" class="panel">
+    <div class="grid">
+      <div class="card">
+        <h2>Customer account</h2>
+        <p class="muted small">Create a local demo profile. This is not a secure account system.</p>
+        <label class="field"><span>Your name</span><input id="customerName" placeholder="Full name"></label>
+        <label class="field"><span>Email</span><input id="customerEmail" type="email" placeholder="you@example.com"></label>
+        <label class="field"><span>Mobile number</span><input id="customerPhone" type="tel" placeholder="07..."></label>
+        <button class="btn full" id="saveCustomer">Save demo account</button>
+        <div id="accountMessage" class="small muted"></div>
+      </div>
+      <div class="card"><h3>My rides</h3><div id="myRides" class="empty">Your bookings will appear here.</div></div>
+      <div class="card"><h3>Leave a review</h3>
+        <label class="field"><span>Completed booking</span><select id="reviewBooking"><option value="">Select a completed ride</option></select></label>
+        <label class="field"><span>Rating</span><select id="rating"><option value="5">★★★★★ — Excellent</option><option value="4">★★★★ — Good</option><option value="3">★★★ — Average</option><option value="2">★★ — Poor</option><option value="1">★ — Very poor</option></select></label>
+        <label class="field"><span>Comment (optional)</span><textarea id="reviewComment" rows="3" placeholder="Tell us about your journey"></textarea></label>
+        <button class="btn full" id="submitReview">Submit review</button><div id="reviewMessage" class="small muted"></div>
+      </div>
+    </div>
+  </section>
+  <div class="footer">© <span id="year"></span> RideGo Nottingham · Standalone prototype · Card processing is not connected</div>
+</main>
+<script>
+/* RideGo single-file demo. Data is stored only in this browser using localStorage. */
+const KEY='ridego_demo_v1';
+const PROMOS={WELCOME10:{type:'percent',value:10},RIDE5:{type:'fixed',value:5}};
+const money=n=>'£'+Number(n||0).toFixed(2);
+const $=id=>document.getElementById(id);
+let data=loadData(), selectedVehicle={type:'Economy',base:5,mile:1.45}, currentDriver='';
+function loadData(){try{return JSON.parse(localStorage.getItem(KEY))||{bookings:[],drivers:[],reviews:[],customer:null}}catch(e){return{bookings:[],drivers:[],reviews:[],customer:null}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function escapeHTML(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fareCalc(){let miles=Math.max(1,Math.min(500,Number($('miles').value)||1));let raw=selectedVehicle.base+miles*selectedVehicle.mile+( $('journey').value==='airport'?12:0 );let code=$('promo').value.trim().toUpperCase(),discount=0,msg='No discount applied.';if(code&&PROMOS[code]){discount=PROMOS[code].type==='percent'?raw*PROMOS[code].value/100:PROMOS[code].value;discount=Math.min(raw,discount);msg=code+' applied: −'+money(discount)}else if(code){msg='Code not recognised. Try WELCOME10 or RIDE5.'}let total=Math.max(0,raw-discount);$('fare').textContent=money(total);$('fareMiles').textContent=miles+' mi';$('fareVehicle').textContent=selectedVehicle.type;$('discountInfo').textContent=msg;return{miles,raw,discount,total,code:code&&PROMOS[code]?code:''}}
+function render(){
+ $('adminBookings').textContent=data.bookings.length;$('adminDrivers').textContent=data.drivers.length;$('adminRevenue').textContent=money(data.bookings.reduce((s,b)=>s+b.fare,0));
+ $('adminBookingList').innerHTML=data.bookings.length?data.bookings.slice().reverse().map(b=>bookingCard(b,true)).join(''):'<div class="empty">No bookings yet.</div>';
+ $('adminDriverList').innerHTML=data.drivers.length?data.drivers.map(d=>`<div class="item"><strong>${escapeHTML(d.name)}</strong><p class="small muted">${escapeHTML(d.email)} · ${escapeHTML(d.car)}</p><span class="pill ${d.status==='Approved'?'green':'amber'}">${d.status}</span> <button class="btn light" onclick="approveDriver('${d.id}')">Mark checked</button></div>`).join(''):'<div class="empty">No driver applications yet.</div>';
+ $('bookingStatus').innerHTML=data.bookings.length?bookingCard(data.bookings[data.bookings.length-1],false):'Your confirmed demo bookings will appear here.';
+ $('myRides').innerHTML=data.bookings.length?data.bookings.slice().reverse().map(b=>bookingCard(b,false)).join(''):'<div class="empty">Your bookings will appear here.</div>';
+ let completed=data.bookings.filter(b=>b.driver===currentDriver&&b.status==='Completed'),gross=completed.reduce((s,b)=>s+b.fare,0);
+ $('driverCompleted').textContent=completed.length;$('driverGross').textContent=money(gross);$('driverNet').textContent=money(gross*.8);
+ let jobs=data.bookings.filter(b=>b.status==='Searching'||(b.status==='Accepted'&&b.driver===currentDriver));
+ $('driverJobs').innerHTML=currentDriver?(jobs.length?jobs.map(b=>bookingCard(b,true)).join(''):'<div class="empty">No jobs assigned to you.</div>'):'Sign in to see unassigned bookings.';
+ $('reviewBooking').innerHTML='<option value="">Select a completed ride</option>'+data.bookings.filter(b=>b.status==='Completed'&&!data.reviews.some(r=>r.bookingId===b.id)).map(b=>`<option value="${b.id}">${escapeHTML(b.pickup)} → ${escapeHTML(b.dropoff)} (${money(b.fare)})</option>`).join('');
+ $('reviewPreview').innerHTML=data.reviews.length?data.reviews.slice(-3).reverse().map(r=>`<div class="item"><span class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span><p class="small">${escapeHTML(r.comment||'Customer review')}</p></div>`).join(''):'No reviews yet.';
+}
+function bookingCard(b,actions){let statusClass=b.status==='Completed'?'green':b.status==='Cancelled'?'red':'amber';let controls='';if(actions){if(b.status==='Searching'&&currentDriver)controls=`<button class="btn" onclick="jobAction('${b.id}','Accepted')">Accept job</button>`;if(b.status==='Accepted'&&b.driver===currentDriver)controls=`<button class="btn" onclick="jobAction('${b.id}','Completed')">Complete ride</button> <button class="btn light" onclick="jobAction('${b.id}','Searching')">Release job</button>`;if(b.status==='Searching')controls+=` <button class="btn red" onclick="jobAction('${b.id}','Cancelled')">Cancel</button>`}
+return `<div class="item"><div class="item-head"><strong>${escapeHTML(b.pickup)} → ${escapeHTML(b.dropoff)}</strong><strong>${money(b.fare)}</strong></div><p class="small muted">${escapeHTML(b.vehicle)} · ${b.miles} miles · ${new Date(b.created).toLocaleString()}</p><span class="pill ${statusClass}">${b.status}</span> <span class="pill">Card demo</span>${b.driver?`<p class="small">Driver: ${escapeHTML(b.driver)}</p>`:''}<div class="row" style="margin-top:9px;flex-wrap:wrap">${controls}</div></div>`}
+function jobAction(id,status){let b=data.bookings.find(x=>x.id===id);if(!b)return;if(status==='Accepted'){if(!currentDriver)return alert('Driver sign-in required');if(b.status!=='Searching')return alert('This job is no longer available');b.driver=currentDriver}else if(status==='Searching'){b.driver=''}b.status=status;save()}
+function approveDriver(id){let d=data.drivers.find(x=>x.id===id);if(d){d.status='Checked in demo';save()}}
+document.querySelectorAll('.nav button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));btn.classList.add('active');$(btn.dataset.panel).classList.add('active');render()}));
+document.querySelectorAll('.vehicle').forEach(v=>v.addEventListener('click',()=>{document.querySelectorAll('.vehicle').forEach(x=>x.classList.remove('selected'));v.classList.add('selected');selectedVehicle={type:v.dataset.type,base:Number(v.dataset.base),mile:Number(v.dataset.mile)};fareCalc()}));
+['miles','promo','journey'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='journey')$('airportFields').classList.toggle('hidden',$('journey').value!=='airport');fareCalc()}));
+$('airport').addEventListener('change',()=>{$('dropoff').value=$('airport').value;fareCalc()});
+$('locate').addEventListener('click',()=>{if(!navigator.geolocation){$('gpsStatus').textContent='GPS unavailable in this browser';return}$('gpsStatus').textContent='Requesting permission…';navigator.geolocation.getCurrentPosition(pos=>{let lat=pos.coords.latitude.toFixed(5),lon=pos.coords.longitude.toFixed(5);$('pickup').value=`GPS ${lat}, ${lon}`;$('gpsStatus').textContent='Location received';$('gpsStatus').innerHTML=`<a target="_blank" rel="noopener" href="https://www.google.com/maps?q=${lat},${lon}">View location ↗</a>`},err=>{$('gpsStatus').textContent=err.code===1?'Location permission denied':'Could not get location'},{enableHighAccuracy:true,timeout:10000})});
+$('bookBtn').addEventListener('click',()=>{let pickup=$('pickup').value.trim(),dropoff=$('dropoff').value.trim(),f=fareCalc();if(!pickup||!dropoff)return alert('Please enter pickup and destination.');if(Number($('passengers').value)>(selectedVehicle.type==='XL'?6:4))return alert('Please choose a vehicle with enough seats.');if(!data.customer){alert('Please create your customer account first.');document.querySelector('[data-panel="account"]').click();return}if(!confirm(`Demo checkout: ${money(f.total)} by card. No payment will be taken. Create booking?`))return;let b={id:'RG'+Date.now(),pickup,dropoff,vehicle:selectedVehicle.type,miles:f.miles,fare:Number(f.total.toFixed(2)),discount:f.discount,code:f.code,status:'Searching',driver:'',created:new Date().toISOString(),customer:data.customer.name,email:data.customer.email,journey:$('journey').value};data.bookings.push(b);save();alert('Demo booking created. No card has been charged. A real driver is not being dispatched.')});
+$('registerDriver').addEventListener('click',()=>{let name=$('driverName').value.trim(),email=$('driverEmail').value.trim(),phone=$('driverPhone').value.trim(),car=$('driverCar').value.trim();if(!name||!email||!phone||!car||!$('driverDeclaration').checked)return alert('Complete all fields and tick the declaration.');if(data.drivers.some(d=>d.email.toLowerCase()===email.toLowerCase()))return alert('This email is already registered.');data.drivers.push({id:'D'+Date.now(),name,email,phone,car,status:'Pending review'});$('driverMessage').textContent='Application saved in this browser. Operator verification is still required.';save()});
+$('driverSignIn').addEventListener('click',()=>{let name=$('driverLogin').value.trim();let d=data.drivers.find(x=>x.name.toLowerCase()===name.toLowerCase());if(!d)return alert('Driver not found. Register first using this browser.');currentDriver=d.name;$('driverSigned').textContent='Signed in as '+d.name+' · '+d.status;render()});
+$('saveCustomer').addEventListener('click',()=>{let name=$('customerName').value.trim(),email=$('customerEmail').value.trim(),phone=$('customerPhone').value.trim();if(!name||!email||!phone)return alert('Please complete all account fields.');data.customer={name,email,phone};$('accountMessage').textContent='Demo customer profile saved on this device.';save()});
+$('submitReview').addEventListener('click',()=>{let id=$('reviewBooking').value;if(!id)return alert('Select a completed booking first.');let b=data.bookings.find(x=>x.id===id);if(!b||b.status!=='Completed')return alert('Only completed rides can be reviewed.');data.reviews.push({bookingId:id,rating:Number($('rating').value),comment:$('reviewComment').value.trim(),created:new Date().toISOString()});$('reviewMessage').textContent='Review saved locally.';$('reviewComment').value='';save()});
+$('exportData').addEventListener('click',()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='ridego-demo-data.json';a.click();URL.revokeObjectURL(url)});
+$('clearData').addEventListener('click',()=>{if(!confirm('Delete all RideGo demo data from this browser?'))return;data={bookings:[],drivers:[],reviews:[],customer:null};currentDriver='';localStorage.removeItem(KEY);render();alert('Local demo data cleared.')});
+$('year').textContent=new Date().getFullYear();fareCalc();render();
+</script>
+</body>
+</html>
